@@ -16,7 +16,21 @@ describe('Models', () => {
 
       const createdUser = await User.create(newUser)
 
+      expect(createdUser).toBeInstanceOf(User)
       expect(createdUser).toEqual(expect.objectContaining(newUser))
+    })
+  })
+
+  describe('Message', () => {
+    test('User can creeate a message', async () => {
+      const testMessage = {
+        message: 'This is a trial message'
+      }
+
+      const createMessage = await Message.create(testMessage)
+
+      expect(createMessage).toBeInstanceOf(Message)
+      expect(createMessage).toEqual(expect.objectContaining(testMessage))
     })
   })
 })
