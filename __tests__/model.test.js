@@ -86,7 +86,7 @@ describe('Models', () => {
       const createdChat = await Chat.create()
 
       // Associate the a user and their message to a chat
-      await createdUser.setChat(createdChat)
+      await createdUser.addChat(createdChat)
 
       await createdMessage.setUser(createdUser)
       await createdMessage.setChat(createdChat)
@@ -96,6 +96,7 @@ describe('Models', () => {
         include: [User, Message]
       })
 
+      console.log(JSON.stringify(chatWithUser, 0, 2))
       // Validate that associations were set accordingly
       expect(chatWithUser).toBeInstanceOf(Chat)
       expect(chatWithUser.Users).toEqual(
