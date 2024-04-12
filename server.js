@@ -1,4 +1,4 @@
-const { app } = require('./app')
+const { app } = require('./routes/app')
 // const { db } = require()
 const port = 3001
 
