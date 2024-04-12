@@ -27,10 +27,18 @@ describe('Models', () => {
         message: 'This is a trial message'
       }
 
-      const createMessage = await Message.create(testMessage)
+      const createdMessage = await Message.create(testMessage)
 
-      expect(createMessage).toBeInstanceOf(Message)
-      expect(createMessage).toEqual(expect.objectContaining(testMessage))
+      expect(createdMessage).toBeInstanceOf(Message)
+      expect(createdMessage).toEqual(expect.objectContaining(testMessage))
+    })
+  })
+
+  describe('Chat', () => {
+    test('Can create a chat', async () => {
+      const createdChat = await Chat.create()
+
+      expect(createdChat).toBeInstanceOf(Chat)
     })
   })
 
