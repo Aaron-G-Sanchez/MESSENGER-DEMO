@@ -1,5 +1,5 @@
 const { app } = require('./routes/app')
-// const { db } = require()
+// const { db } = require('./db/connection')
 const port = 3001
 
 app.listen(port, () => {
