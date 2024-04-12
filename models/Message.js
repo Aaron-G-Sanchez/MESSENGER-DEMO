@@ -1,4 +1,4 @@
-const { db, DataTypes } = require('../../db/connection')
+const { db, DataTypes } = require('../db/connection')
 
 const Message = db.define(
   'Message',

@@ -1,5 +1,5 @@
 const { describe, test, expect, beforeAll } = require('@jest/globals')
-const { User, Chat, Message } = require('../src/models')
+const { User, Chat, Message } = require('../models')
 const { db } = require('../db/connection')
 
 describe('Models', () => {
@@ -96,7 +96,6 @@ describe('Models', () => {
         include: [User, Message]
       })
 
-      console.log(JSON.stringify(chatWithUser, 0, 2))
       // Validate that associations were set accordingly
       expect(chatWithUser).toBeInstanceOf(Chat)
       expect(chatWithUser.Users).toEqual(
