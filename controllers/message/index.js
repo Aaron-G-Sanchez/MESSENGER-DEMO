@@ -1,5 +1,6 @@
 const { Message } = require('../../models')
 
+// Util function to query the message table on the backend
 const getMessages = async (userId, chatId) => {
   // Instantiate error and message variables
   let error

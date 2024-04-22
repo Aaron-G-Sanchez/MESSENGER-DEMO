@@ -11,6 +11,7 @@ app.get('/', (req, res, next) => {
   res.send({ msg: 'Hello World' })
 })
 
+// Message routes
 app.use('/messages', messageRouter)
 
 module.exports = {
