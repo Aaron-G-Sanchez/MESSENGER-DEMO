@@ -12,8 +12,7 @@ router.get('/:chatId', async (req, res, next) => {
     const messages = await Message.findAll({
       where: {
         ChatId: chatId
-      },
-      order: [['createdAt', 'DEC']]
+      }
     })
 
     res.send(messages)

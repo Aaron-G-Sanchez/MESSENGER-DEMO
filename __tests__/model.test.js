@@ -22,7 +22,7 @@ describe('Models', () => {
   })
 
   describe('Message', () => {
-    test('User can creeate a message', async () => {
+    test('User can create a message', async () => {
       const testMessage = {
         message: 'This is an unassociated message'
       }
