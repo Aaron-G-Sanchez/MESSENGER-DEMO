@@ -36,6 +36,7 @@ router.get('/:userId/:chatId', async (req, res, next) => {
 router.post('/:userId/:chatId', async (req, res, next) => {
   // TODO Add error handling to check that the message is a string.
   const { userId, chatId } = req.params
+  console.log(userId, '||||', chatId)
   const { message } = req.body
 
   try {
