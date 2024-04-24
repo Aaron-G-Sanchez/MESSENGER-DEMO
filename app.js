@@ -24,8 +24,15 @@ app.get('/', (req, res, next) => {
 // Message routes
 app.use('/messages', messageRouter)
 
-io.on('connect', (socket) => {
+io.on('connection', (socket) => {
   console.log(socket.id)
+  console.log('new connection has been created')
+
+  // Event?
+  // Event emitted on the front end.
+  socket.on('send-message', (args) => {
+    console.log(args)
+  })
 })
 
 module.exports = {
