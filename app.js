@@ -25,7 +25,7 @@ app.get('/', (req, res, next) => {
 app.use('/messages', messageRouter)
 
 io.on('connection', (socket) => {
-  console.log(socket.id)
+  // console.log(socket.id)
   console.log('new connection has been created')
 
   // Event?

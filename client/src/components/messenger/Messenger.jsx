@@ -1,40 +1,36 @@
 import './messenger.css'
 import { useState } from 'react'
-import { FetchMessages, PostMessage } from '../../services'
+// import { FetchMessages, PostMessage } from '../../services'
+import { ConnectionManager } from './components/ConnectionManager'
+import { socket } from '../../socket'
 
-export const Messenger = ({ messages, setMessages }) => {
-  const [chatId] = useState(2)
-  const [userId] = useState(3)
-  const [formValue, setFormValue] = useState('')
+export const Messenger = () => {
+  // Might need for posting a message to a specific chat
+  // const [chatId] = useState(2)
+  // const [userId] = useState(3)
+  const [message, setMessage] = useState('')
 
   const handleChange = (e) => {
-    setFormValue(e.target.value)
-  }
-
-  const getMessages = async () => {
-    const data = await FetchMessages(chatId)
-    setMessages(data)
+    setMessage(e.target.value)
   }
 
   const sendMessage = async (e) => {
     e.preventDefault()
-    const message = {
-      message: formValue
-    }
+    // PRE-SOCKET.IO IMPLEMENTATION
     // Probably don't need to await here.
-    await PostMessage(userId, chatId, message)
-    setFormValue('')
+    // await PostMessage(userId, chatId, message)
 
-    // Should eventually be handled by websocket.
-    await getMessages(chatId)
+    // SOCKET.IO
+    socket.volatile.emit('send-message', message)
+    setMessage('')
   }
 
   return (
     <>
       <div className="messenger">
+        <ConnectionManager />
         <h1>Messenger!</h1>
-        <button onClick={getMessages}>Get Messages</button>
-        {messages ? (
+        {/* {messages ? (
           <div className="messages-container">
             {messages.map((message) => (
               <div key={message.id}>
@@ -42,10 +38,10 @@ export const Messenger = ({ messages, setMessages }) => {
               </div>
             ))}
           </div>
-        ) : null}
+        ) : null} */}
 
         <form onSubmit={sendMessage}>
-          <input value={formValue} onChange={handleChange} />
+          <input value={message} onChange={handleChange} />
           <button>Send!</button>
         </form>
       </div>
