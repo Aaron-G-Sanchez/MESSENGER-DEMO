@@ -1,8 +1,16 @@
 const express = require('express')
+const { createServer } = require('http')
 const cors = require('cors')
+const { Server } = require('socket.io')
 const { messageRouter } = require('./routes')
 
 const app = express()
+const httpServer = createServer(app)
+const io = new Server(httpServer, {
+  cors: {
+    origin: 'http://localhost:5173'
+  }
+})
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -16,6 +24,10 @@ app.get('/', (req, res, next) => {
 // Message routes
 app.use('/messages', messageRouter)
 
+io.on('connect', (socket) => {
+  console.log(socket.id)
+})
+
 module.exports = {
-  app
+  httpServer
 }

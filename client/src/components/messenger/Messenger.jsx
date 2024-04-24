@@ -21,11 +21,14 @@ export const Messenger = ({ messages, setMessages }) => {
     const message = {
       message: formValue
     }
-    const data = await PostMessage(userId, chatId, message)
+    // Probably don't need to await here.
+    await PostMessage(userId, chatId, message)
     setFormValue('')
 
+    // Should eventually be handled by websocket.
     await getMessages(chatId)
   }
+
   return (
     <>
       <div className="messenger">
