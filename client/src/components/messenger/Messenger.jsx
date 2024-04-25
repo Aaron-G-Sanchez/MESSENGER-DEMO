@@ -1,10 +1,9 @@
 import './messenger.css'
 import { useState } from 'react'
-// import { FetchMessages, PostMessage } from '../../services'
 import { ConnectionManager } from './components/ConnectionManager'
 import { socket } from '../../socket'
 
-export const Messenger = () => {
+export const Messenger = ({ messages, setMessages }) => {
   // Might need for posting a message to a specific chat
   // const [chatId] = useState(2)
   // const [userId] = useState(3)
@@ -16,29 +15,33 @@ export const Messenger = () => {
 
   const sendMessage = async (e) => {
     e.preventDefault()
-    // PRE-SOCKET.IO IMPLEMENTATION
-    // Probably don't need to await here.
-    // await PostMessage(userId, chatId, message)
 
     // SOCKET.IO
     socket.volatile.emit('send-message', message)
     setMessage('')
   }
 
+  // Catch event emitted from the backend.
+  socket.on('return-message', (args) => {
+    setMessages([...messages, args])
+  })
+
   return (
     <>
       <div className="messenger">
         <ConnectionManager />
         <h1>Messenger!</h1>
-        {/* {messages ? (
+        {messages.length > 0 ? (
           <div className="messages-container">
-            {messages.map((message) => (
-              <div key={message.id}>
-                <p>{message.message}</p>
+            {messages.map((message, idx) => (
+              <div key={idx}>
+                <p>{message}</p>
               </div>
             ))}
           </div>
-        ) : null} */}
+        ) : (
+          <p>No Messages yet!</p>
+        )}
 
         <form onSubmit={sendMessage}>
           <input value={message} onChange={handleChange} />
