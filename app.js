@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
     // Maybe create the message in the db here.
     // Then send back the message for the front end to display.
     const reversedArgs = args.split('').reverse().join('')
-    socket.emit('return-message', reversedArgs)
+    io.emit('return-message', reversedArgs)
   })
 })
 
