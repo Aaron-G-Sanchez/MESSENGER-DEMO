@@ -1,7 +1,8 @@
 import { socket } from '../../../socket'
 
-export const ConnectionManager = () => {
+export const ConnectionManager = ({ chatId }) => {
   const connect = () => {
+    socket.auth = { chatId }
     socket.connect()
   }
 

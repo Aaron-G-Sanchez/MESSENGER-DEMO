@@ -28,6 +28,8 @@ io.on('connection', (socket) => {
   // console.log(socket.id)
   console.log('new connection has been created')
 
+  console.log(socket.handshake.auth)
+
   // Event?
   // Event emitted on the front end.
   socket.on('send-message', (args) => {

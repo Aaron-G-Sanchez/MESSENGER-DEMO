@@ -5,7 +5,7 @@ import { socket } from '../../socket'
 
 export const Messenger = ({ messages, setMessages }) => {
   // Might need for posting a message to a specific chat
-  // const [chatId] = useState(2)
+  const [chatId] = useState(2)
   // const [userId] = useState(3)
   const [message, setMessage] = useState('')
 
@@ -29,7 +29,7 @@ export const Messenger = ({ messages, setMessages }) => {
   return (
     <>
       <div className="messenger">
-        <ConnectionManager />
+        <ConnectionManager chatId={chatId} />
         <h1>Messenger!</h1>
         {messages.length > 0 ? (
           <div className="messages-container">
