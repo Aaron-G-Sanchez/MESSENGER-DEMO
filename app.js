@@ -34,6 +34,8 @@ app.use('/messages', messageRouter)
 io.use((socket, next) => {
   const chatId = socket.handshake.auth.chatId
 
+  console.log(chatId)
+
   let gate = false
   // Loop through array of parties and check that the party exists.
   // In PH if there is NO party we don't even want to try and connect.

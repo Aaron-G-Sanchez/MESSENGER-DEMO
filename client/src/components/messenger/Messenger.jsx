@@ -5,8 +5,7 @@ import { socket } from '../../socket'
 
 export const Messenger = ({ messages, setMessages }) => {
   // Might need for posting a message to a specific chat
-  const [chatId] = useState(12)
-  // const [userId] = useState(3)
+  const [chatId, setChatId] = useState('')
   const [message, setMessage] = useState('')
 
   const handleChange = (e) => {
@@ -15,13 +14,17 @@ export const Messenger = ({ messages, setMessages }) => {
 
   const sendMessage = async (e) => {
     e.preventDefault()
-
     // SOCKET.IO
     socket.volatile.emit('send-message', {
       message,
       to: chatId
     })
     setMessage('')
+  }
+
+  const assignChatId = (e) => {
+    const intChatId = Number(e.target.value)
+    setChatId(intChatId)
   }
 
   // Catch events emitted from the backend.
@@ -37,6 +40,18 @@ export const Messenger = ({ messages, setMessages }) => {
 
   return (
     <>
+      <div>
+        <label>Chat Id: {chatId && chatId}</label>
+        <select id="chat-id-select" onChange={assignChatId}>
+          <option>-- SELECT CHAT --</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+
       <div className="messenger">
         <ConnectionManager chatId={chatId} />
         <h1>Messenger!</h1>
