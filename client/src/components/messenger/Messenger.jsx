@@ -5,7 +5,7 @@ import { socket } from '../../socket'
 
 export const Messenger = ({ messages, setMessages }) => {
   // Might need for posting a message to a specific chat
-  const [chatId] = useState(2)
+  const [chatId] = useState(12)
   // const [userId] = useState(3)
   const [message, setMessage] = useState('')
 
@@ -17,13 +17,22 @@ export const Messenger = ({ messages, setMessages }) => {
     e.preventDefault()
 
     // SOCKET.IO
-    socket.volatile.emit('send-message', message)
+    socket.volatile.emit('send-message', {
+      message,
+      to: chatId
+    })
     setMessage('')
   }
 
-  // Catch event emitted from the backend.
-  socket.on('return-message', (args) => {
-    setMessages([...messages, args])
+  // Catch events emitted from the backend.
+  // TODO for a connection error, a loader or message should be added
+  // and a boolean should be set.
+  socket.on('connect_error', (error) => {
+    console.log(error)
+  })
+
+  socket.on('return-message', ({ message, from }) => {
+    setMessages([...messages, message])
   })
 
   return (
